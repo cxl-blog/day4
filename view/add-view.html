@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+</head>
+<body align="center">
+
+<h2>添加用户</h2>
+<form method="post" action="../index.php?controller=User&action=add">
+    <label for="name">姓名：</label>
+    <input type="text" name="name" id="name" ><br>
+    <label for="sex">性别：</label>
+    <input type="text" name="sex" id="sex" ><br>
+    <label for="old">年龄：</label>
+    <input type="text" name="age" id="old" ><br>
+    <label for="comment">个人简介：</label>
+    <textarea id="comment" name="comment"></textarea><br>
+    <input type="submit" value="提交">
+    <a href="../index.html"><input type="button" value="返回首页"></a>
+</form>
+
+</body>
+</html>
