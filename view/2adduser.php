@@ -11,6 +11,6 @@ $sql="INSERT INTO `user` ( `name`,`sex`, `age`,`comment`) VALUES ('$_POST[name]'
 if($dbh->query($sql))
 {
     echo "新增成功，即将跳转.....";
-    header("Refresh:3; url=index.html");
+    header("Refresh:3; url=css.html");
 }
 ?>

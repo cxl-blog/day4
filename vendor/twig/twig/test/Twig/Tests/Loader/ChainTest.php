@@ -30,16 +30,16 @@ class Twig_Tests_Loader_ChainTest extends PHPUnit_Framework_TestCase
         $path = dirname(__FILE__).'/../Fixtures';
         $loader = new Twig_Loader_Chain(array(
             new Twig_Loader_Array(array('foo' => 'bar')),
-            new Twig_Loader_Array(array('errors/index.html' => 'baz')),
+            new Twig_Loader_Array(array('errors/css.html' => 'baz')),
             new Twig_Loader_Filesystem(array($path)),
         ));
 
         $this->assertEquals('foo', $loader->getSourceContext('foo')->getName());
         $this->assertSame('', $loader->getSourceContext('foo')->getPath());
 
-        $this->assertEquals('errors/index.html', $loader->getSourceContext('errors/index.html')->getName());
-        $this->assertSame('', $loader->getSourceContext('errors/index.html')->getPath());
-        $this->assertEquals('baz', $loader->getSourceContext('errors/index.html')->getCode());
+        $this->assertEquals('errors/css.html', $loader->getSourceContext('errors/css.html')->getName());
+        $this->assertSame('', $loader->getSourceContext('errors/css.html')->getPath());
+        $this->assertEquals('baz', $loader->getSourceContext('errors/css.html')->getCode());
 
         $this->assertEquals('errors/base.html', $loader->getSourceContext('errors/base.html')->getName());
         $this->assertEquals(realpath($path.'/errors/base.html'), realpath($loader->getSourceContext('errors/base.html')->getPath()));
@@ -105,7 +105,7 @@ class Twig_Tests_Loader_ChainTest extends PHPUnit_Framework_TestCase
         // can be removed in 2.0
         $loader2 = $this->getMockBuilder('Twig_ChainTestLoaderInterface')->getMock();
         //$loader2 = $this->getMockBuilder(array('Twig_LoaderInterface', 'Twig_SourceContextLoaderInterface'))->getMock();
-        $loader2->expects($this->once())->method('getSourceContext')->will($this->returnValue(new Twig_Source('content', 'index')));
+        $loader2->expects($this->once())->method('getSourceContext')->will($this->returnValue(new Twig_Source('content', 'css')));
 
         $loader = new Twig_Loader_Chain();
         $loader->addLoader($loader1);

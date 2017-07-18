@@ -54,7 +54,7 @@ class Twig_Node_For extends Twig_Node
                 ->write("\$context['loop'] = array(\n")
                 ->write("  'parent' => \$context['_parent'],\n")
                 ->write("  'index0' => 0,\n")
-                ->write("  'index'  => 1,\n")
+                ->write("  'css'  => 1,\n")
                 ->write("  'first'  => true,\n")
                 ->write(");\n")
             ;

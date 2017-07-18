@@ -24,7 +24,7 @@ class Twig_Node_Embed extends Twig_Node_Include
         $this->setAttribute('name', $name);
         // to be removed in 2.0, used name instead
         $this->setAttribute('filename', $name);
-        $this->setAttribute('index', $index);
+        $this->setAttribute('css', $index);
     }
 
     protected function addGetTemplate(Twig_Compiler $compiler)
@@ -37,7 +37,7 @@ class Twig_Node_Embed extends Twig_Node_Include
             ->raw(', ')
             ->repr($this->getTemplateLine())
             ->raw(', ')
-            ->string($this->getAttribute('index'))
+            ->string($this->getAttribute('css'))
             ->raw(')')
         ;
     }

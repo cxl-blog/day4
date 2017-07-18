@@ -53,7 +53,7 @@ class Twig_Node_Module extends Twig_Node
             'source' => $this->source->getCode(),
             // filename to be remove in 2.0 (use getTemplateName() instead)
             'filename' => $this->source->getName(),
-            'index' => null,
+            'css' => null,
             'embedded_templates' => $embeddedTemplates,
         ), 1);
 
@@ -63,7 +63,7 @@ class Twig_Node_Module extends Twig_Node
 
     public function setIndex($index)
     {
-        $this->setAttribute('index', $index);
+        $this->setAttribute('css', $index);
     }
 
     public function compile(Twig_Compiler $compiler)
@@ -77,7 +77,7 @@ class Twig_Node_Module extends Twig_Node
 
     protected function compileTemplate(Twig_Compiler $compiler)
     {
-        if (!$this->getAttribute('index')) {
+        if (!$this->getAttribute('css')) {
             $compiler->write('<?php');
         }
 
@@ -156,7 +156,7 @@ class Twig_Node_Module extends Twig_Node
             ->write("\n\n")
             // if the template name contains */, add a blank to avoid a PHP parse error
             ->write('/* '.str_replace('*/', '* /', $this->source->getName())." */\n")
-            ->write('class '.$compiler->getEnvironment()->getTemplateClass($this->source->getName(), $this->getAttribute('index')))
+            ->write('class '.$compiler->getEnvironment()->getTemplateClass($this->source->getName(), $this->getAttribute('css')))
             ->raw(sprintf(" extends %s\n", $compiler->getEnvironment()->getBaseTemplateClass()))
             ->write("{\n")
             ->indent()

@@ -145,7 +145,7 @@ class Twig_Tests_ParserTest extends PHPUnit_Framework_TestCase
     {{ foo }}
 {% endmacro %}
 EOF
-        , 'index')));
+        , 'css')));
 
         // The getVarName() must not depend on the template loaders,
         // If this test does not throw any exception, that's good.

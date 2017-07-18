@@ -24,9 +24,9 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAttributeExceptions($template, $message)
     {
-        $templates = array('index' => $template);
+        $templates = array('css' => $template);
         $env = new Twig_Environment(new Twig_Loader_Array($templates), array('strict_variables' => true));
-        $template = $env->loadTemplate('index');
+        $template = $env->loadTemplate('css');
 
         $context = array(
             'string' => 'foo',
@@ -42,7 +42,7 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
             $template->render($context);
             $this->fail('Accessing an invalid attribute should throw an exception.');
         } catch (Twig_Error_Runtime $e) {
-            $this->assertSame(sprintf($message, 'index'), $e->getMessage());
+            $this->assertSame(sprintf($message, 'css'), $e->getMessage());
         }
     }
 
@@ -116,7 +116,7 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
         $twig = new Twig_Environment($this->getMockBuilder('Twig_TemplateTestLoaderInterface')->getMock());
         //$twig = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface', 'Twig_SourceContextLoaderInterface')->getMock());
 
-        $template = new Twig_TemplateTest($twig, 'index.twig');
+        $template = new Twig_TemplateTest($twig, 'css.twig');
         $template1 = new Twig_TemplateTest($twig, 'index1.twig');
 
         $this->assertInstanceof('Twig_Markup', $template->getAttribute($template1, 'string'));
@@ -139,24 +139,24 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Calling "string" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "string" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "true" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "true" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "zero" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "zero" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "empty" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "empty" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
-     * @expectedDeprecation Calling "renderBlock" on template "index.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name") instead).
-     * @expectedDeprecation Calling "displayBlock" on template "index.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name") instead).
-     * @expectedDeprecation Calling "hasBlock" on template "index.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use "block("name") is defined" instead).
-     * @expectedDeprecation Calling "render" on template "index.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("index.twig") instead).
-     * @expectedDeprecation Calling "display" on template "index.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("index.twig") instead).
-     * @expectedDeprecation Calling "renderBlock" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name", template) instead).
-     * @expectedDeprecation Calling "displayBlock" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name", template) instead).
-     * @expectedDeprecation Calling "hasBlock" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use "block("name", template) is defined" instead).
-     * @expectedDeprecation Calling "render" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("index1.twig") instead).
-     * @expectedDeprecation Calling "display" on template "index1.twig" from template "index.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("index1.twig") instead).
+     * @expectedDeprecation Calling "string" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "string" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "true" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "true" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "zero" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "zero" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "empty" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "empty" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0.
+     * @expectedDeprecation Calling "renderBlock" on template "css.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name") instead).
+     * @expectedDeprecation Calling "displayBlock" on template "css.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name") instead).
+     * @expectedDeprecation Calling "hasBlock" on template "css.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use "block("name") is defined" instead).
+     * @expectedDeprecation Calling "render" on template "css.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("css.twig") instead).
+     * @expectedDeprecation Calling "display" on template "css.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("css.twig") instead).
+     * @expectedDeprecation Calling "renderBlock" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name", template) instead).
+     * @expectedDeprecation Calling "displayBlock" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use block("name", template) instead).
+     * @expectedDeprecation Calling "hasBlock" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use "block("name", template) is defined" instead).
+     * @expectedDeprecation Calling "render" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("index1.twig") instead).
+     * @expectedDeprecation Calling "display" on template "index1.twig" from template "css.twig" is deprecated since version 1.28 and won't be supported anymore in 2.0. Use include("index1.twig") instead).
      */
     public function testGetAttributeWithTemplateAsObjectForDeprecations()
     {
@@ -164,7 +164,7 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
         $twig = new Twig_Environment($this->getMockBuilder('Twig_TemplateTestLoaderInterface')->getMock());
         //$twig = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface', 'Twig_SourceContextLoaderInterface')->getMock());
 
-        $template = new Twig_TemplateTest($twig, 'index.twig');
+        $template = new Twig_TemplateTest($twig, 'css.twig');
         $template1 = new Twig_TemplateTest($twig, 'index1.twig');
 
         $this->assertInstanceof('Twig_Markup', $template->getAttribute($template1, 'string'));
@@ -202,14 +202,14 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Silent display of undefined block "unknown" in template "index.twig" is deprecated since version 1.29 and will throw an exception in 2.0. Use the "block('unknown') is defined" expression to test for block existence.
-     * @expectedDeprecation Silent display of undefined block "unknown" in template "index.twig" is deprecated since version 1.29 and will throw an exception in 2.0. Use the "block('unknown') is defined" expression to test for block existence.
+     * @expectedDeprecation Silent display of undefined block "unknown" in template "css.twig" is deprecated since version 1.29 and will throw an exception in 2.0. Use the "block('unknown') is defined" expression to test for block existence.
+     * @expectedDeprecation Silent display of undefined block "unknown" in template "css.twig" is deprecated since version 1.29 and will throw an exception in 2.0. Use the "block('unknown') is defined" expression to test for block existence.
      */
     public function testRenderBlockWithUndefinedBlock()
     {
         $twig = new Twig_Environment($this->getMockBuilder('Twig_TemplateTestLoaderInterface')->getMock());
 
-        $template = new Twig_TemplateTest($twig, 'index.twig');
+        $template = new Twig_TemplateTest($twig, 'css.twig');
         $template->renderBlock('unknown', array());
         $template->displayBlock('unknown', array());
     }
@@ -417,9 +417,9 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
 
         // tests when input is not an array or object
         $tests = array_merge($tests, array(
-            array(false, null, 42, 'a', array(), $anyType, 'Impossible to access an attribute ("a") on a integer variable ("42") in "index.twig".'),
-            array(false, null, 'string', 'a', array(), $anyType, 'Impossible to access an attribute ("a") on a string variable ("string") in "index.twig".'),
-            array(false, null, array(), 'a', array(), $anyType, 'Key "a" does not exist as the array is empty in "index.twig".'),
+            array(false, null, 42, 'a', array(), $anyType, 'Impossible to access an attribute ("a") on a integer variable ("42") in "css.twig".'),
+            array(false, null, 'string', 'a', array(), $anyType, 'Impossible to access an attribute ("a") on a string variable ("string") in "css.twig".'),
+            array(false, null, array(), 'a', array(), $anyType, 'Key "a" does not exist as the array is empty in "css.twig".'),
         ));
 
         return $tests;
@@ -430,7 +430,7 @@ class Twig_TemplateTest extends Twig_Template
 {
     private $name;
 
-    public function __construct(Twig_Environment $env, $name = 'index.twig')
+    public function __construct(Twig_Environment $env, $name = 'css.twig')
     {
         parent::__construct($env);
         self::$cache = array();

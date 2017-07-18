@@ -16,7 +16,6 @@ class UserDao{
     function __construct()
     {
         $this->mysql=Sql::Conneect();
-        return $this->mysql;
     }
 
     function getUser($id){//id查询单行
@@ -27,61 +26,76 @@ class UserDao{
         $a->execute(
             array($id)
         );
-        $string=$a->fetchAll();
+        $string=$a->fetchAll(\PDO::FETCH_ASSOC);
         return $string;
     }
-    function findUserByname($name){//多行查询
-        $dbh=$this->mysql;
-        //var_dump($dbh);
-        $sql="SELECT * FROM `user` WHERE  name= ? ";
-        $a=$dbh->prepare($sql);
-        $a->execute(
-            array($name)
-        );
-        $string=$a->fetchAll();
+    function findUserByname($name,$offset,$pagesize){//多行查询
+        $conn =$this->mysql;
 
-        return $string;
+        $sql="SELECT * FROM `user` WHERE  name='$name'  LIMIT $offset,$pagesize";
+        $str=$conn->query($sql);
+
+       $row=array();
+       while ($qurr=$str->fetch(\PDO::FETCH_ASSOC))
+       {
+       $row[]=$qurr;
+       }
+        return $row;
     }
-    function findSexUser($sex){
-        $dbh=$this->mysql;
-        //var_dump($dbh);
-        $sql="SELECT * FROM `user` WHERE  sex= ? ";
-        $a=$dbh->prepare($sql);
-        $a->execute(
-            array($sex)
-        );
-        $string=$a->fetchAll();
 
-        return $string;
+    function getCount($name,$sex,$ager,$agel)
+    {
+        if(!empty($sex)&&$ager==''&&$agel=='')
+        {
+            $sql="SELECT count(*) FROM `user` WHERE sex= '$sex'";
+            $result = $this->mysql->query($sql)->fetch();
+            return $result[0];
+        }
+        if(!empty($sex)&&!empty($ager)&&!empty($agel))
+        {
+            $sql="SELECT count(*) FROM `user` WHERE sex= '$sex' and '$agel'=age<='$ager'";
+            $result = $this->mysql->query($sql)->fetch();
+            return $result[0];
+        }
+        if(!empty($name))
+        {
+            $sql="SELECT count(*) FROM `user` WHERE name= '$name'";
+            $result = $this->mysql->query($sql)->fetch();
+            return $result[0];
+        }
+        $sql="SELECT count(*) FROM `user`";
+        $result = $this->mysql->query($sql)->fetch();
+        return $result[0];
+
+
+    }
+
+    function findSexUser($sex,$offset,$pagesize){  //
+
+        $sql="SELECT * FROM `user` WHERE  sex= '$sex' LIMIT $offset,$pagesize";
+        return $this->mysql->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
 
     }
     function addUser($name,$sex,$age,$comment){
-        $dbh=$this->mysql;
         $sql="INSERT INTO `user` ( `name`,`sex`, `age`,`comment`) VALUES (?,?,?,?)";
-        $a=$dbh->prepare($sql);
-
+        $a=$this->mysql->prepare($sql);
         if($a->execute(array($name,$sex,$age,$comment,)))
             return 1;
         else
             return 0;
-
-
-
     }
     function delUser($id){
-        $dbh=$this->mysql;
         $sql="DELETE FROM `user` WHERE id= ? ";
-        $a=$dbh->prepare($sql);
+        $a=$this->mysql->prepare($sql);
         if($a->execute(array($id)))
             return 1;
         else
             return 0;
-
     }
     function upUser($id,$name,$sex,$age,$comment){
-        $dbh=$this->mysql;
         $sql="UPDATE `user` SET `name`=?,`sex`=?,`age`=?,`comment`=? WHERE id=?";
-        $a=$dbh->prepare($sql);
+        $a=$this->mysql->prepare($sql);
         if($a->execute(array($name,$sex,$age,$comment,$id)))
             return 1;
         else
@@ -101,8 +115,7 @@ class UserDao{
     }
     function findUserall(){
         $sql="SELECT * FROM `user`";
-        $dbh=$this->mysql;
-        $qurr=$dbh->query($sql);
+        $qurr=$this->mysql->query($sql);
         $string=array();
         while ($row=$qurr->fetch(\PDO::FETCH_ASSOC))
         {
@@ -110,10 +123,16 @@ class UserDao{
 
         }
         return $string;
+    }
 
+    function findUserlimit($offset,$pagesize)
+    {
+            $sql = "SELECT * FROM `user` LIMIT $offset,$pagesize";
+            return $this->mysql->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
 
     }
+
     function serchUser($sex,$agel,$ager){
 
         $dbh=$this->mysql;

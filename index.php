@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -6,11 +7,15 @@
  * Time: 下午5:57
  */
 
-namespace User;
+/*namespace User;*/
 use User\usercontroller\Usercontroller;
 require_once __DIR__."/vendor/autoload.php";
+error_reporting(E_ALL || ~E_NOTICE);
 header("Content-type: text/html; charset=utf-8");
-$method=$_GET['action']."Action";
+if(isset($_GET['action']))
+    $method=$_GET['action']."Action";
+if(isset($_POST['action']))
+    $method=$_POST['action']."Action";
 $controller=new Usercontroller();
 $controller->$method();
 ?>

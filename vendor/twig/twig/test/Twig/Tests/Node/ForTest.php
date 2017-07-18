@@ -78,7 +78,7 @@ EOF
 \$context['loop'] = array(
   'parent' => \$context['_parent'],
   'index0' => 0,
-  'index'  => 1,
+  'css'  => 1,
   'first'  => true,
 );
 if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_seq'] instanceof Countable)) {
@@ -91,7 +91,7 @@ if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_
 foreach (\$context['_seq'] as \$context["k"] => \$context["v"]) {
     echo {$this->getVariableGetter('foo')};
     ++\$context['loop']['index0'];
-    ++\$context['loop']['index'];
+    ++\$context['loop']['css'];
     \$context['loop']['first'] = false;
     if (isset(\$context['loop']['length'])) {
         --\$context['loop']['revindex0'];
@@ -121,14 +121,14 @@ EOF
 \$context['loop'] = array(
   'parent' => \$context['_parent'],
   'index0' => 0,
-  'index'  => 1,
+  'css'  => 1,
   'first'  => true,
 );
 foreach (\$context['_seq'] as \$context["k"] => \$context["v"]) {
     if (true) {
         echo {$this->getVariableGetter('foo')};
         ++\$context['loop']['index0'];
-        ++\$context['loop']['index'];
+        ++\$context['loop']['css'];
         \$context['loop']['first'] = false;
     }
 }
@@ -155,7 +155,7 @@ EOF
 \$context['loop'] = array(
   'parent' => \$context['_parent'],
   'index0' => 0,
-  'index'  => 1,
+  'css'  => 1,
   'first'  => true,
 );
 if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_seq'] instanceof Countable)) {
@@ -169,7 +169,7 @@ foreach (\$context['_seq'] as \$context["k"] => \$context["v"]) {
     echo {$this->getVariableGetter('foo')};
     \$context['_iterated'] = true;
     ++\$context['loop']['index0'];
-    ++\$context['loop']['index'];
+    ++\$context['loop']['css'];
     \$context['loop']['first'] = false;
     if (isset(\$context['loop']['length'])) {
         --\$context['loop']['revindex0'];

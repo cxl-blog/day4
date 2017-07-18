@@ -230,7 +230,7 @@ class Twig_Tests_Extension_SandboxTest extends PHPUnit_Framework_TestCase
 
     public function testMacrosInASandbox()
     {
-        $twig = $this->getEnvironment(true, array('autoescape' => 'html'), array('index' => <<<EOF
+        $twig = $this->getEnvironment(true, array('autoescape' => 'html'), array('css' => <<<EOF
 {%- import _self as macros %}
 
 {%- macro test(text) %}<p>{{ text }}</p>{% endmacro %}
@@ -239,7 +239,7 @@ class Twig_Tests_Extension_SandboxTest extends PHPUnit_Framework_TestCase
 EOF
         ), array('macro', 'import'), array('escape'));
 
-        $this->assertEquals('<p>username</p>', $twig->loadTemplate('index')->render(array()));
+        $this->assertEquals('<p>username</p>', $twig->loadTemplate('css')->render(array()));
     }
 
     public function testSandboxDisabledAfterIncludeFunctionError()

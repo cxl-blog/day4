@@ -6,7 +6,7 @@
  * Time: 下午5:23
  */
 namespace  User\usercontroller;
-//use User\model\Usermodel;
+//use User\Config\Usermodel;
 use User\Userserver\Userserver;
 require_once "vendor/autoload.php";
 class Usercontroller{
@@ -18,124 +18,94 @@ class Usercontroller{
         //var_dump($user);
         return $user;
     }
-    function addAction(){
+
+    function addAction()
+    {
         $name=$_POST['name'];
         $sex=$_POST['sex'];
         $age=$_POST['age'];
         $comment=$_POST['comment'];
         if($this->getmodel()->addUser($name,$sex,$age,$comment))
         {
-            echo "新增成功，即将跳转.....";
-            header("Refresh:3; url=index.html");
+            echo "ok";
+            //header("Refresh:3; url=?controller=User&action=list");
         }
         else{
-            echo "新增失败，即将跳转.....";
-            header("Refresh:3; url=index.html");
+            echo "false";
+            //header("Refresh:3; url=?controller=User&action=list");
         }
     }
-    function delAction(){
+
+    function delAction()
+    {
         $id=$_GET['id'];
         if($this->getmodel()->delUser($id)) {
-            echo "删除id为 $id 的用户信息成功";
-            include('view/del-view.php');
+            echo "ok";
         }
         else
         {
-            echo "删除id为 $id 的用户信息失败";
-            include('view/del-view.php');
+            echo "false";
         }
-
     }
+
     function modifyAction(){
         $id=$_GET['id'];
         $user=$this->getmodel()->getUserModity($id);
-         $this->render("/edit-view.twig",array('user'=>$user));
+        //print_r($user);
+        echo json_encode($user, JSON_UNESCAPED_UNICODE);
+        //$this->render("/edit-view.twig",array('user'=>$user));
     }
+
+    function testAction(){
+        echo "ok";
+    }
+
     function upAction(){
         $id=$_POST['id'];
         $name=$_POST['name'];
         $sex=$_POST['sex'];
         $age=$_POST['age'];
         $comment=$_POST['comment'];
+        //echo json_encode($user, JSON_UNESCAPED_UNICODE);
         if($this->getmodel()->upUser($id,$name,$sex,$age,$comment)) {
-            echo "修改成功，即将跳转。。。。";
-            header("Refresh:1; url=?controller=user&action=list");
+            echo "ok";
         }
         else
         {
-            echo "修改失败，即将跳转。。。。";
-            header("Refresh:1; url=?controller=user&action=list");
+            echo "false";
         }
-
     }
+
     function sleAction(){
-        $name=trim($_POST['sele']);
-        //var_dump($name);
-        $users=$this->getmodel()->seleUser($name);
-        $array=$this->paging(count($users),$users);
-        $this->render("/sele-view.twig",$array);
-    }
-    function serchuserAction(){
-        $sex=$_POST['sex'];
-        $agel=$_POST['agel'];
-        $ager=$_POST['ager'];
-        if(self::$users==null)
-        self::$users=$this->getmodel()->serchUser($sex,$agel,$ager);
-
-
-        var_dump(self::$users);
-        $array=$this->paging(count(self::$users),self::$users);
-        $this->render("/serchuser-view.twig",$array);
-
-    }
-    function listAction(){//twig分页
-        static $row=null;
-        if(!isset($_GET['select'])) {
-            $select = 0;
-            if($row==null)
-            $row = $this->getmodel()->findUserall($select);
-        }
-        else {
-            $select = $_GET['select'];
-            if($row==null)
-            $row=$this->getmodel()->findUserall($select);
-        }
-
-        $num=count($row);
-        $array=$this->paging($num,$row);
-        $this->render("/list-view.twig",$array);
-    }
-
-    function paging($num,$row){
-        $page_show=5;
-        if(!isset($_GET['page']))
-            $page=1;
-        if(isset($_GET['page']))
-            $page=$_GET['page'];
-        if($page<=1)
-            $page=1;
-        //$page=intval($page);
-        //var_dump($page);
-        $pagenum=ceil($num/$page_show);//分多少页
-        $users=array();
-        $offset=($page-1)*$page_show;
-        for($offset;$offset<$num&&$offset<$page_show*$page;$offset++)
+        $data=urldecode(trim($_GET['seledata']));
+        if(!isset($_POST['delrequest']))
         {
-            $users[]=$row[$offset];
+            $array=$this->getmodel()->paging("","","",$data);
+            $this->render("/sele-view.twig",$array);
         }
-        $pagelast=$page-1;
-        $pagenext=$page+1;
-        if($num<=$page_show)
-            return array('users'=>$users);
-        if($pagelast>0&&$pagenext<=$pagenum)
-            return array('users'=>$users,'page'=>$page,'pagenum'=>$pagenum,'num'=>$num,'pagelast'=>$pagelast,'pagenext'=>$pagenext);
-        if ($pagelast<=0)
-            return array('users'=>$users,'page'=>$page,'pagenum'=>$pagenum,'num'=>$num,'pagenext'=>$pagenext);
-        if($pagenext>$pagenum)
-            return array('users'=>$users,'page'=>$page,'pagenum'=>$pagenum,'num'=>$num,'pagelast'=>$pagelast);
+        else
+            {
+                $array=$this->getmodel()->paging("","","",$data);
+                echo json_encode($array, JSON_UNESCAPED_UNICODE);
+            }
 
 
     }
+
+    function serchuserAction()
+    {
+        $sex = urldecode($_GET['sex']);
+        $agel =$_GET['agel'];
+        $ager =$_GET['ager'];
+        $array=$this->getmodel()->paging($sex,$agel,$ager,"");
+        echo json_encode($array, JSON_UNESCAPED_UNICODE);
+    }
+
+    function listAction(){//twig分页
+        $array=$this->getmodel() -> paging("","","","");
+        echo json_encode($array, JSON_UNESCAPED_UNICODE);
+    }
+
     private function render($renderTwig,$data = array())
     {
     $loader = new \Twig_Loader_Filesystem('view');

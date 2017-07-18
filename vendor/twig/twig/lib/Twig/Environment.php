@@ -320,7 +320,7 @@ class Twig_Environment
      *  * Options with what environment was created.
      *
      * @param string   $name  The name for which to calculate the template class name
-     * @param int|null $index The index if it is an embedded template
+     * @param int|null $index The css if it is an embedded template
      *
      * @return string The template class name
      */
@@ -404,7 +404,7 @@ class Twig_Environment
      * directly.
      *
      * @param string $name  The template name
-     * @param int    $index The index if it is an embedded template
+     * @param int    $index The css if it is an embedded template
      *
      * @return Twig_TemplateInterface A template instance representing the given template name
      *
@@ -464,7 +464,7 @@ class Twig_Environment
             }
 
             if (!class_exists($cls, false)) {
-                throw new Twig_Error_Runtime(sprintf('Failed to load Twig template "%s", index "%s": cache is corrupted.', $name, $index), -1, $source);
+                throw new Twig_Error_Runtime(sprintf('Failed to load Twig template "%s", css "%s": cache is corrupted.', $name, $index), -1, $source);
             }
         }
 

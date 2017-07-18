@@ -89,7 +89,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
         $twig = new Twig_Environment($loader);
         $twig->addGlobal('foo', 'foo');
         $twig->getGlobals();
-        $twig->loadTemplate('index');
+        $twig->loadTemplate('css');
         $twig->addGlobal('foo', 'bar');
         $globals = $twig->getGlobals();
         $this->assertEquals('bar', $globals['foo']);
@@ -104,12 +104,12 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $globals['foo']);
 
         // globals can be modified after extensions and a template has been loaded
-        $arrayLoader = new Twig_Loader_Array(array('index' => '{{foo}}'));
+        $arrayLoader = new Twig_Loader_Array(array('css' => '{{foo}}'));
         $twig = new Twig_Environment($arrayLoader);
         $twig->addGlobal('foo', 'foo');
         $twig->getGlobals();
         $twig->getFunctions();
-        $twig->loadTemplate('index');
+        $twig->loadTemplate('css');
         $twig->addGlobal('foo', 'bar');
         $globals = $twig->getGlobals();
         $this->assertEquals('bar', $globals['foo']);
@@ -117,7 +117,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
         $twig = new Twig_Environment($arrayLoader);
         $twig->getGlobals();
         $twig->addGlobal('foo', 'bar');
-        $template = $twig->loadTemplate('index');
+        $template = $twig->loadTemplate('css');
         $this->assertEquals('bar', $template->render(array()));
 
         /* to be uncomment in Twig 2.0
@@ -125,7 +125,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
         $twig = new Twig_Environment($loader);
         $twig->addGlobal('foo', 'foo');
         $twig->getGlobals();
-        $twig->loadTemplate('index');
+        $twig->loadTemplate('css');
         try {
             $twig->addGlobal('bar', 'bar');
             $this->fail();
@@ -150,7 +150,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
         $twig->addGlobal('foo', 'foo');
         $twig->getGlobals();
         $twig->getFunctions();
-        $twig->loadTemplate('index');
+        $twig->loadTemplate('css');
         try {
             $twig->addGlobal('bar', 'bar');
             $this->fail();
@@ -160,7 +160,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
 
         // test adding globals after a template has been loaded without call to getGlobals
         $twig = new Twig_Environment($loader);
-        $twig->loadTemplate('index');
+        $twig->loadTemplate('css');
         try {
             $twig->addGlobal('bar', 'bar');
             $this->fail();
@@ -176,10 +176,10 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
         $options = array('cache' => $cache, 'auto_reload' => false, 'debug' => false);
 
         // force compilation
-        $twig = new Twig_Environment($loader = new Twig_Loader_Array(array('index' => '{{ foo }}')), $options);
+        $twig = new Twig_Environment($loader = new Twig_Loader_Array(array('css' => '{{ foo }}')), $options);
 
-        $key = $cache->generateKey('index', $twig->getTemplateClass('index'));
-        $cache->write($key, $twig->compileSource(new Twig_Source('{{ foo }}', 'index')));
+        $key = $cache->generateKey('css', $twig->getTemplateClass('css'));
+        $cache->write($key, $twig->compileSource(new Twig_Source('{{ foo }}', 'css')));
 
         // check that extensions won't be initialized when rendering a template that is already in the cache
         $twig = $this
@@ -192,7 +192,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
         $twig->expects($this->never())->method('initExtensions');
 
         // render template
-        $output = $twig->render('index', array('foo' => 'bar'));
+        $output = $twig->render('css', array('foo' => 'bar'));
         $this->assertEquals('bar', $output);
 
         Twig_Tests_FilesystemHelper::removeDir($dir);

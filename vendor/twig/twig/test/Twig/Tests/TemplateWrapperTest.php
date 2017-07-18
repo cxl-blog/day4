@@ -13,14 +13,14 @@ class Twig_Tests_TemplateWrapperTest extends PHPUnit_Framework_TestCase
     public function testHasGetBlocks()
     {
         $twig = new Twig_Environment(new Twig_Loader_Array(array(
-            'index' => '{% block foo %}{% endblock %}',
+            'css' => '{% block foo %}{% endblock %}',
             'index_with_use' => '{% use "imported" %}{% block foo %}{% endblock %}',
             'index_with_extends' => '{% extends "extended" %}{% block foo %}{% endblock %}',
             'imported' => '{% block imported %}{% endblock %}',
             'extended' => '{% block extended %}{% endblock %}',
         )));
 
-        $wrapper = new Twig_TemplateWrapper($twig, $twig->loadTemplate('index'));
+        $wrapper = new Twig_TemplateWrapper($twig, $twig->loadTemplate('css'));
         $this->assertTrue($wrapper->hasBlock('foo'));
         $this->assertFalse($wrapper->hasBlock('bar'));
         $this->assertEquals(array('foo'), $wrapper->getBlockNames());
@@ -39,22 +39,22 @@ class Twig_Tests_TemplateWrapperTest extends PHPUnit_Framework_TestCase
     public function testRenderBlock()
     {
         $twig = new Twig_Environment(new Twig_Loader_Array(array(
-            'index' => '{% block foo %}{{ foo }}{{ bar }}{% endblock %}',
+            'css' => '{% block foo %}{{ foo }}{{ bar }}{% endblock %}',
         )));
         $twig->addGlobal('bar', 'BAR');
 
-        $wrapper = new Twig_TemplateWrapper($twig, $twig->loadTemplate('index'));
+        $wrapper = new Twig_TemplateWrapper($twig, $twig->loadTemplate('css'));
         $this->assertEquals('FOOBAR', $wrapper->renderBlock('foo', array('foo' => 'FOO')));
     }
 
     public function testDisplayBlock()
     {
         $twig = new Twig_Environment(new Twig_Loader_Array(array(
-            'index' => '{% block foo %}{{ foo }}{{ bar }}{% endblock %}',
+            'css' => '{% block foo %}{{ foo }}{{ bar }}{% endblock %}',
         )));
         $twig->addGlobal('bar', 'BAR');
 
-        $wrapper = new Twig_TemplateWrapper($twig, $twig->loadTemplate('index'));
+        $wrapper = new Twig_TemplateWrapper($twig, $twig->loadTemplate('css'));
 
         ob_start();
         $wrapper->displayBlock('foo', array('foo' => 'FOO'));

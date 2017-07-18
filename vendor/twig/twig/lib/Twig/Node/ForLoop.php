@@ -30,7 +30,7 @@ class Twig_Node_ForLoop extends Twig_Node
         if ($this->getAttribute('with_loop')) {
             $compiler
                 ->write("++\$context['loop']['index0'];\n")
-                ->write("++\$context['loop']['index'];\n")
+                ->write("++\$context['loop']['css'];\n")
                 ->write("\$context['loop']['first'] = false;\n")
             ;
 

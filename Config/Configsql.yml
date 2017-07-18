@@ -1,0 +1,12 @@
+sql:
+    localhost:127.0.0.1
+    sqltype:mysql
+    user:root
+    password:''
+    sqlname:sql
+
+
+
+dao  server  jirkou1
+dao  buneng1weiyu1 add  delete
+  controller  zhinneg1chuancan1
